@@ -11,12 +11,11 @@ export default class SearchBar extends Vue {
   @Prop() private searchCondition!: string;
   @Emit('update-searchCondition')
   public updateSarchCondition(e: any) {
-    console.log('e', e.target.value);
     return e.target.value;
   }
   @Emit('search-weather')
   public searchWeather() {
-
+    return undefined;
   }
 
 }
