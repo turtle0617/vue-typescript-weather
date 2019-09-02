@@ -20,9 +20,13 @@ export default new Vuex.Store({
     getWeather(state, data) {
       state.weatherInfo = data;
     },
+    resetWeatherInfo(state){
+      state.weatherInfo = {}
+    }
   },
   actions: {
     async getWeather({ commit }, condition: string) {
+      commit('resetWeatherInfo')
       const { data }: Response = await API.getWeather({
         q: condition,
       });
