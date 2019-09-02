@@ -8,6 +8,7 @@ const baseUrl: string = 'http://api.openweathermap.org/data/2.5/weather';
 function getWeather(payload: SearchWeather): object {
     const params: object = {
         q: payload.q,
+        units: 'metric',
         appid: credentials.data.weather_api_key,
     };
     return axios.get(baseUrl, {
