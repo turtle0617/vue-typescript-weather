@@ -1,18 +1,18 @@
 import axios from 'axios';
 import credentials from '@/utils/credentials.ts';
 
-interface payload {
-    [propName: string]: any;
+interface SearchWeather {
+    q: string;
 }
-const base_url: string = 'http://api.openweathermap.org/data/2.5/weather';
-function GET(payload: payload): object {
+const baseUrl: string = 'http://api.openweathermap.org/data/2.5/weather';
+function getWeather(payload: SearchWeather): object {
     const params: object = {
         q: payload.q,
         appid: credentials.data.weather_api_key,
     };
-    return axios.get(base_url, {
+    return axios.get(baseUrl, {
         params,
     });
 }
 
-export default { GET };
+export default { getWeather };
