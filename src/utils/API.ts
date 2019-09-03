@@ -4,7 +4,7 @@ import credentials from '@/utils/credentials.ts';
 interface SearchWeather {
     q: string;
 }
-const baseUrl: string = 'http://api.openweathermap.org/data/2.5/weather';
+const baseUrl: string = 'https://api.openweathermap.org/data/2.5/weather';
 function getWeather(payload: SearchWeather): object {
     const params: object = {
         q: payload.q,
