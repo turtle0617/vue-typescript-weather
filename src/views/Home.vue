@@ -87,6 +87,11 @@ export default class Home extends Vue {
   }
   private async searchWeather(): Promise<void> {
     try {
+      if (this.checkIsNumber(this.searchCondition)) {
+        alert('錯誤，請重新搜尋');
+        this.searchCondition = '';
+        return;
+      }
       this.notResult = false;
       await this.$store.dispatch('getWeather', this.searchCondition);
     } catch (error) {
@@ -95,11 +100,18 @@ export default class Home extends Vue {
   }
   private async searchWithHistory(condition: string): Promise<void> {
     try {
+      if (this.checkIsNumber(condition)) {
+        alert('錯誤，請重新搜尋');
+        return;
+      }
       this.notResult = false;
       await this.$store.dispatch('getWeather', condition);
     } catch (error) {
       this.notResult = true;
     }
+  }
+  private checkIsNumber(text: string): boolean {
+    return !isNaN(Number(text));
   }
 }
 </script>
