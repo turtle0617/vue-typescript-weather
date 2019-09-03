@@ -37,10 +37,10 @@ export default new Vuex.Store({
       }
       localStorage.setItem('historySearch', JSON.stringify(state.historySearch));
     },
-    getWeather(state, data) {
+    getWeather(state: StateTree, data: object) {
       state.weatherInfo = data;
     },
-    resetWeatherInfo(state) {
+    resetWeatherInfo(state: StateTree) {
       state.weatherInfo = {};
     },
   },
