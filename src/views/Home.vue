@@ -114,9 +114,12 @@ export default class Home extends Vue {
 }
 .search {
   width: 50%;
+  box-sizing: border-box;
+  padding-right: 1rem;
   @media screen and (max-width: 576px) {
     width: 100%;
     margin-bottom: 1rem;
+    padding-right: 0;
   }
 }
 .search__title {
@@ -125,10 +128,9 @@ export default class Home extends Vue {
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
   h2 {
-    margin: 0;
-  }
-  .notice {
-    margin-left: 0.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
   }
 }
 .histories {
