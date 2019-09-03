@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <div class="search">
+      <div class="search__title">
+        <h2>搜尋天氣</h2>
+        <span class="notice">(請輸入城市英文名稱)</span>
+      </div>
       <SearchBar
         :searchCondition="searchCondition"
         @update-searchCondition="searchCondition = $event"
@@ -113,6 +117,18 @@ export default class Home extends Vue {
   @media screen and (max-width: 576px) {
     width: 100%;
     margin-bottom: 1rem;
+  }
+}
+.search__title {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  h2 {
+    margin: 0;
+  }
+  .notice {
+    margin-left: 0.5rem;
   }
 }
 .histories {

@@ -1,6 +1,6 @@
 <template>
   <div class="searchBar">
-    <input type="text" name="city" id="city" @input="updateSarchCondition"/>
+    <input type="text" name="city" id="city" placeholder="tainan"  @input="updateSarchCondition"/>
     <button @click="searchWeather">Search</button>
   </div>
 </template>
@@ -20,3 +20,19 @@ export default class SearchBar extends Vue {
 
 }
 </script>
+<style lang="scss" scoped>
+.searchBar{
+  display: flex;
+  input {
+    flex: 1 0 auto;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid black;
+  }
+  button {
+    margin-left: 1rem;
+    border-radius: 5px;
+  }
+}
+</style>
