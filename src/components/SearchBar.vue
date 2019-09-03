@@ -15,7 +15,7 @@ export default class SearchBar extends Vue {
   }
   @Emit('search-weather')
   public searchWeather() {
-    return undefined;
+    return void 0;
   }
 
 }
