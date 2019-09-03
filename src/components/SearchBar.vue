@@ -1,6 +1,6 @@
 <template>
   <div class="searchBar">
-    <input type="text" name="city" id="city" placeholder="tainan" @input="updateSarchCondition" />
+    <input type="text" name="city" id="city" placeholder="tainan" :value="searchCondition" @input="updateSarchCondition" />
     <button @click="searchWeather">Search</button>
   </div>
 </template>
