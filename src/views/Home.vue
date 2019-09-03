@@ -1,42 +1,57 @@
 <template>
   <div class="home">
-    <SearchBar
-      :searchCondition="searchCondition"
-      @update-searchCondition="searchCondition = $event"
-      @search-weather="searchWeather"
-    />
-    <div class="weatherInfo" v-if="weatherInfo">
-      <div class="city">
-        <span class="title">城市：</span>
-        <span>{{weatherInfo.name}}</span>
+    <div class="search">
+      <SearchBar
+        :searchCondition="searchCondition"
+        @update-searchCondition="searchCondition = $event"
+        @search-weather="searchWeather"
+      />
+      <div class="weatherInfo" v-if="weatherInfo">
+        <div class="city">
+          <span class="title">城市：</span>
+          <span>{{weatherInfo.name}}</span>
+        </div>
+        <div class="weatherDescription">
+          <span class="title">天氣概況：</span>
+          <span>{{weatherDescription}}</span>
+        </div>
+        <div class="temperature__average">
+          <span class="title">平均氣溫：</span>
+          <span>{{weatherInfo.main.temp}}</span>
+          <span class="unit">°C</span>
+        </div>
+        <div class="temperature__max">
+          <span class="title">最高溫：</span>
+          <span>{{weatherInfo.main.temp_max}}</span>
+          <span class="unit">°C</span>
+        </div>
+        <div class="temperature__min">
+          <span class="title">最低溫：</span>
+          <span>{{weatherInfo.main.temp_min}}</span>
+          <span class="unit">°C</span>
+        </div>
+        <div class="humidity">
+          <span class="title">溼度：</span>
+          <span>{{weatherInfo.main.humidity}}</span>
+          <span class="unit">%</span>
+        </div>
       </div>
-      <div class="weatherDescription">
-        <span class="title">天氣概況：</span>
-        <span>{{weatherDescription}}</span>
-      </div>
-      <div class="temperature__average">
-        <span class="title">平均氣溫：</span>
-        <span>{{weatherInfo.main.temp}}</span>
-        <span class="unit">°C</span>
-      </div>
-      <div class="temperature__max">
-        <span class="title">最高溫：</span>
-        <span>{{weatherInfo.main.temp_max}}</span>
-        <span class="unit">°C</span>
-      </div>
-      <div class="temperature__min">
-        <span class="title">最低溫：</span>
-        <span>{{weatherInfo.main.temp_min}}</span>
-        <span class="unit">°C</span>
-      </div>
-      <div class="humidity">
-        <span class="title">溼度：</span>
-        <span>{{weatherInfo.main.humidity}}</span>
-        <span class="unit">%</span>
+      <div class="notResult" v-if="notResult">
+        <h3>沒有此城市，請重新搜尋</h3>
       </div>
     </div>
-    <div class="notResult" v-if="notResult">
-      <h3>沒有此城市，請重新搜尋</h3>
+    <div class="histories">
+      <h2>歷史記錄</h2>
+      <ol class="historiesList" v-if="historiesSearch">
+        <li
+          class="historyItem"
+          v-for="(history,index) in historiesSearch"
+          :key="index"
+          @click="searchWithHistory(history)"
+        >
+          <span>{{history}}</span>
+        </li>
+      </ol>
     </div>
   </div>
 </template>
@@ -63,10 +78,21 @@ export default class Home extends Vue {
       ? this.$store.getters.getWeatherInfo.weather[0].description
       : '錯誤';
   }
+  get historiesSearch(): string[] {
+    return this.$store.getters.getHistorySearch;
+  }
   private async searchWeather(): Promise<void> {
     try {
       this.notResult = false;
       await this.$store.dispatch('getWeather', this.searchCondition);
+    } catch (error) {
+      this.notResult = true;
+    }
+  }
+  private async searchWithHistory(condition: string): Promise<void> {
+    try {
+      this.notResult = false;
+      await this.$store.dispatch('getWeather', condition);
     } catch (error) {
       this.notResult = true;
     }
@@ -76,8 +102,35 @@ export default class Home extends Vue {
 <style lang="scss" scoped>
 .home {
   padding-top: 100px;
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.search {
+  width: 50%;
+  @media screen and (max-width: 576px) {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+.histories {
+  width: 50%;
+  margin-top: 0;
+  h2 {
+    margin-top: 0;
+  }
+  @media screen and (max-width: 576px) {
+    width: 100%;
+  }
+}
+.historyItem {
+  padding: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(200, 200, 200, 0.4);
+  }
 }
 .weatherInfo {
   text-align: left;
